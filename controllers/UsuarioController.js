@@ -1,6 +1,8 @@
 import { buscarUsuario} from "../models/UsuarioModel.js"
 import { generalAlert } from "../utils/alerts.js"
 import { setLocalStorage } from "../utils/local-storage.js"
+import { generarToken } from "../utils/generators.js"
+
 
 function iniciarSesion(){
     let correo = document.querySelector("#correo").value
@@ -8,6 +10,7 @@ function iniciarSesion(){
     let auth = buscarUsuario(correo, contrasena)
     if(auth){
         setLocalStorage('usuario', auth.nombre)
+        setLocalStorage("token", generarToken());
         generalAlert("Bienvenido al sistema", 'Será redireccionado al catálogo de cosas','success')
         setTimeout(()=>{
             return window.location.href = "/views/pages/cosas-view-catalogo.html"
